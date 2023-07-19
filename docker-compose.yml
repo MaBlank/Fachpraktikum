@@ -1,0 +1,24 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./Backend
+    image: spring-boot-mongo-app-2
+    container_name: azure-back
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://db:27017/test
+    ports:
+      - 8080:8080
+  db:
+    image: mongo
+    container_name: azure-db
+    ports:
+      - 27017:27017
+  frontend:
+    build:
+      context: Frontend
+    container_name: azure-front
+    ports:
+      - "4200:4200"
